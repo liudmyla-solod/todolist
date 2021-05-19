@@ -1,32 +1,58 @@
 import React, { Component } from 'react';
-import './TodoListItem.css'
+import './TodoListItem.css';
 
-class TodoListItem extends Component{
+class TodoListItem extends Component {
+
+  state = {
+    done: false,
+    important: false
+  };
+
+  onLabelClick = () => {
+    this.setState((state)=>{
+      return  {
+        done: !state.done
+      };
+    });
+  };
+  onMarkImportant = () => {
+    this.setState((state)=>{
+      return  {
+        important: !state.important
+      };
+    });
+  };
+
 
   render() {
-    const { label, important = false }= this.props;
+    const { label } = this.props;
+    const { done, important } = this.state;
 
-    const style = {
-      color: important ? 'steelblue' : 'black',
-      fontWeight: important ? 'bold' : 'normal'
-    };
+    let classNames = 'todo-list-item';
+    if ( done ) {
+      classNames += ' done';
+    }
+    if ( important ) {
+      classNames += ' important';
+    }
 
     return (
-      <span className="todo-list-item">
+      <span className={ classNames }>
       <span
         className="todo-list-item-label"
-        style={style}>
-        {label}
+        onClick={ this.onLabelClick }>
+        { label }
       </span>
 
       <button type="button"
-              className="btn btn-outline-success btn-sm pull-right">
-        <i className="fa fa-exclamation" />
+              className="btn btn-outline-success btn-sm pull-right"
+              onClick={ this.onMarkImportant }>
+        <i className="fa fa-exclamation"/>
       </button>
 
       <button type="button"
               className="btn btn-outline-danger btn-sm pull-right">
-        <i className="fa fa-trash-o" />
+        <i className="fa fa-trash-o"/>
       </button>
     </span>
     );
@@ -36,28 +62,28 @@ class TodoListItem extends Component{
 export default TodoListItem;
 
 /*const TodoListItemFunc = ({ label, important = false }) => {
-  const { label, important = false }= this.props;
-  const style = {
-    color: important ? 'steelblue' : 'black',
-    fontWeight: important ? 'bold' : 'normal'
-  };
-  return (
-    <span className="todo-list-item">
-      <span
-        className="todo-list-item-label"
-        style={style}>
-        {label}
-      </span>
+ const { label, important = false }= this.props;
+ const style = {
+ color: important ? 'steelblue' : 'black',
+ fontWeight: important ? 'bold' : 'normal'
+ };
+ return (
+ <span className="todo-list-item">
+ <span
+ className="todo-list-item-label"
+ style={style}>
+ {label}
+ </span>
 
-      <button type="button"
-              className="btn btn-outline-success btn-sm pull-right">
-        <i className="fa fa-exclamation" />
-      </button>
+ <button type="button"
+ className="btn btn-outline-success btn-sm pull-right">
+ <i className="fa fa-exclamation" />
+ </button>
 
-      <button type="button"
-              className="btn btn-outline-danger btn-sm pull-right">
-        <i className="fa fa-trash-o" />
-      </button>
-    </span>
-  );
-};*/
+ <button type="button"
+ className="btn btn-outline-danger btn-sm pull-right">
+ <i className="fa fa-trash-o" />
+ </button>
+ </span>
+ );
+ };*/
